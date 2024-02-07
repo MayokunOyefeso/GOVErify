@@ -1,9 +1,9 @@
 #root {
-  /* max-width: 1280px; */
+  max-width: 1280px;
   margin: 0;
   padding: 0 ;
-  font-family: sans-serif;
-  /* text-align: center; */
+  font-family: "Poppins";
+  text-align: center;
 }
 
 .image {
@@ -26,19 +26,19 @@
   position: relative;
   bottom: -60%;
   text-align: center;
-  justify-content: center;
+  align-items: center;
 }
 
 .landing-logo{
-  color: #FFA219;
-  font-family: sans-serif;
+  color: #FFA216;
+  font-weight: 900px;
+  margin-left: 250px;
+
 }
 
 .welcome-message{
   padding-left: 100px;
   padding-right: 100px;
-}
-
-.gold-text{
-  color: #FFBD59;
+  font-weight: 100;
+  color: white;
 }
