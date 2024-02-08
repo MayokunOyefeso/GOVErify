@@ -29,11 +29,53 @@
   align-items: center;
 }
 
+.login{
+  width: 40%;
+  height: 100%;
+  background-color: #004AAD;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  opacity: 80%;
+  /* position: relative; */
+
+  text-align: center;
+  align-items: center;
+}
+
 .landing-logo{
   color: #FFA216;
   font-weight: 900px;
   margin-left: 250px;
 
+}
+
+.logo{
+  color:#FFA216;
+  font-weight: 900px;
+}
+.login-dropdown{
+  margin-top: 20%;
+  margin-bottom: 10%;
+  width: 400px;
+}
+.login-form {
+  margin: 15%;
+  width: 400px;
+}
+.login-form-forgot {
+  float: right;
+  color: white;
+}
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+.login-form-button {
+  width: 100%;
+  margin-bottom: 25px;
+}
+.login-redirect{
+  color: white;
+  padding: 5px;
 }
 
 .welcome-message{
