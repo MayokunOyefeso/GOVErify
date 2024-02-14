@@ -6,6 +6,18 @@
   text-align: center;
 }
 
+.get-started{
+  position: absolute;
+  right: 5%;
+  bottom: 15%;
+  width: 10%;
+}
+.globe{
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  width: 140px;
+}
 .image {
   width: 100vmax;
   height: 100vh;
@@ -20,11 +32,9 @@
   width: 100vmax;
   height: 40%;
   background-color: #004AAD;
-  padding-top: 2px;
-  padding-bottom: 2px;
   opacity: 80%;
-  position: relative;
-  bottom: -60%;
+  position: absolute;
+  bottom: 0;
   text-align: center;
   align-items: center;
 }
@@ -33,34 +43,35 @@
   width: 40%;
   height: 100%;
   background-color: #004AAD;
-  padding-top: 2px;
-  padding-bottom: 2px;
   opacity: 80%;
-  /* position: relative; */
-
-  text-align: center;
-  align-items: center;
+  display: table;
 }
-
+.login-form {
+  margin-top: 35%;
+  margin-left: 15%;
+  display: table;
+  width: 400px;  
+}
 .landing-logo{
   color: #FFA216;
   font-weight: 900px;
-  margin-left: 250px;
-
+  margin-bottom: 3%;
 }
 
 .logo{
   color:#FFA216;
   font-weight: 900px;
+  margin-top: 15%;
 }
 .login-dropdown{
-  margin-top: 20%;
+  margin-top: 10%;
   margin-bottom: 10%;
   width: 400px;
 }
-.login-form {
+.signup-form {
+  display: table;
   margin: 15%;
-  width: 400px;
+  position: relative;
 }
 .login-form-forgot {
   float: right;
@@ -76,11 +87,15 @@
 .login-redirect{
   color: white;
   padding: 5px;
+  cursor: pointer;
 }
 
 .welcome-message{
-  padding-left: 100px;
-  padding-right: 100px;
+  text-align: center;
+  margin-top: 1%;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-bottom: 1%;
   font-weight: 100;
   color: white;
 }

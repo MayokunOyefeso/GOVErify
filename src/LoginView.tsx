@@ -1,11 +1,17 @@
 import globe from "./images/globe.png"
 import { Button, Select, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, MailOutlined, LeftOutlined } from '@ant-design/icons';
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function LoginView() {
-    const handleChange = (value: { value: string; label: React.ReactNode }) => {
-        console.log(value);
-      };
+    
+    const [goHome, setGoHome] = useState(false);
+    
+    if (goHome){
+    return <Navigate to="/"/>
+    }
+
     const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
     };
@@ -13,8 +19,8 @@ function LoginView() {
     return (
       <div className="image">
          <div>
-      <img src={globe} style={{ width: "140px", marginTop: "30px", float: "right", marginRight: "40px"}} alt="Globe" />
-      </div>
+        <img src={globe} className="globe" alt="Globe" />
+        </div>
       <div className="login">
         <h1 className="logo">GOVerify</h1>
         <Form
@@ -24,10 +30,10 @@ function LoginView() {
             onFinish={onFinish}
         >
         <Form.Item
-        name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        name="user_id"
+        rules={[{ required: true, message: 'Please input your Username or Email!' }]}
         >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username or Email" />
         </Form.Item>
         <Form.Item
         name="password"
@@ -38,15 +44,10 @@ function LoginView() {
           type="password"
           placeholder="Password"
         />
-        </Form.Item>
-        <Form.Item>
-        <a className="login-form-forgot" href="">
-          Forgot password?
-        </a>
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" className="login-form-button">
+        <Button htmlType="submit" className="login-form-button" onClick={() => setGoHome(true)}>
           Login
         </Button>
       </Form.Item>

@@ -1,19 +1,21 @@
 import globe from "./images/globe.png"
 import { Button, Select, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 function SignupView() {
     const [goToLogin, setGoToLogin] = useState(false);
-    
+    const [userStatus, setUserStatus] = useState("");
+
     if (goToLogin){
     return <Navigate to="/login"/>
     }
 
     const handleChange = (value: { value: string; label: React.ReactNode }) => {
-        console.log(value); 
-      };
+       setUserStatus(value.value);
+    };
+
     const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
     };
@@ -21,13 +23,13 @@ function SignupView() {
     return (
       <div className="image">
          <div>
-      <img src={globe} style={{ width: "140px", marginTop: "30px", float: "right", marginRight: "40px"}} alt="Globe" />
-      </div>
+        <img src={globe} className="globe" alt="Globe" />
+        </div>
       <div className="login">
         <h1 className="logo">GOVerify</h1>
         <Form
             name="normal_login"
-            className="login-form"
+            className="signup-form"
             initialValues={{ remember: true }}
             onFinish={onFinish}
         >
@@ -54,6 +56,12 @@ function SignupView() {
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
         <Form.Item
+        name="email"
+        rules={[{ required: true, message: 'Please input your Email!' }]}
+        >
+        <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="School Email" />
+        </Form.Item>
+        <Form.Item
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
         >
@@ -61,6 +69,16 @@ function SignupView() {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+        />
+        </Form.Item>
+        <Form.Item
+        name="confirm-password"
+        rules={[{ required: true, message: 'Please confirm your Password!' }]}
+        >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Confirm Password"
         />
         </Form.Item>
         <Form.Item>
@@ -73,7 +91,7 @@ function SignupView() {
         <Button htmlType="submit" className="login-form-button">
           Sign up
         </Button>
-        <h4 className="login-redirect">Already have an account? <a className="login-redirect" onClick={() => setGoToLogin(true)}>Login</a> </h4>
+        <h4 className="login-redirect" onClick={() => setGoToLogin(true)}>Already have an account? Login </h4>
       </Form.Item>
         </Form>
         </div>

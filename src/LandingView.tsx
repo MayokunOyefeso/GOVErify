@@ -16,16 +16,15 @@ function LandingView() {
   return (
     <div className="image">
       <div>
-      <img src={globe} style={{ width: "140px", marginTop: "30px", float: "right", marginRight: "40px"}} alt="Globe" />
+      <img src={globe} className="globe" alt="Globe" />
       </div>
-
       <div className="image-overlay">
       <h1 className="landing-logo">GOVerify</h1>
       <h2 className="welcome-message"> Streamlining the management, and storage of international student records at Fisk University’s Office of 
         Global Initiatives, GOVerify ensures an efficient process and offers a seamless experience.</h2>
-      <Button onClick={() => setGoToLogin(true)} style={{ marginTop: "20px", float: "right", marginRight: "50px"}}>
+      <Button onClick={() => setGoToLogin(true)} className="get-started">
         Let's get started
-        </Button>
+      </Button>
       </div> 
     </div>
       
