@@ -6,6 +6,13 @@
   text-align: center;
 }
 
+.banner{
+  height: 10%;
+  background-color: #004AAD;
+  position: fixed;
+  width: 100vw;
+}
+
 .get-started{
   position: absolute;
   right: 5%;
@@ -68,6 +75,23 @@
   margin-bottom: 10%;
   width: 400px;
 }
+.nav-bar{
+  width: 20%;
+  top: 10%;
+position: fixed ;
+}
+.nav-button{
+  background-color: #FFFF;
+  color: black;
+}
+
+.nav-menu{
+  font-weight: bold;
+  height: 100vh;
+}
+.no_task{
+  margin-top: 20%;
+}
 .signup-form {
   display: table;
   margin: 15%;
@@ -98,4 +122,22 @@
   margin-bottom: 1%;
   font-weight: 100;
   color: white;
+}
+.side-logo{
+  float: left;
+  margin-left: 2%;
+  color: #FFA216;
+  margin-top: 1%;
+}
+.user-icons{
+  float: right;
+  margin-right: 2%;
+  margin-top: 1%;
+  display: inline-block;
+}
+
+.std-home{
+  background-color: #F1F7FF;
+  height: 100vh;
+  width: 100vw;
 }

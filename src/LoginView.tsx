@@ -1,6 +1,6 @@
 import globe from "./images/globe.png"
-import { Button, Select, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined, MailOutlined, LeftOutlined } from '@ant-design/icons';
+import { Button, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ function LoginView() {
     const [goHome, setGoHome] = useState(false);
     
     if (goHome){
-    return <Navigate to="/"/>
+    return <Navigate to="/student-home"/>
     }
 
     const onFinish = (values: any) => {
