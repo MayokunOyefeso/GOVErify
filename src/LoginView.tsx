@@ -25,17 +25,18 @@ function LoginView() {
         <h1 className="logo">GOVerify</h1>
         <Form
             name="normal_login"
-            className="login-form"
             initialValues={{ remember: true }}
             onFinish={onFinish}
         >
         <Form.Item
+        className="login-form"
         name="user_id"
         rules={[{ required: true, message: 'Please input your Username or Email!' }]}
         >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username or Email" />
         </Form.Item>
         <Form.Item
+        className="login-form"
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
         >
@@ -46,7 +47,7 @@ function LoginView() {
         />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item className="login-form">
         <Button htmlType="submit" className="login-form-button" onClick={() => setGoHome(true)}>
           Login
         </Button>

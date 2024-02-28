@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0 ;
   font-family: "Poppins";
-  text-align: center;
+  /* text-align: center; */
 }
 
 .banner{
@@ -53,12 +53,7 @@
   opacity: 80%;
   display: table;
 }
-.login-form {
-  margin-top: 35%;
-  margin-left: 15%;
-  display: table;
-  width: 400px;  
-}
+
 .landing-logo{
   color: #FFA216;
   font-weight: 900px;
@@ -68,13 +63,11 @@
 .logo{
   color:#FFA216;
   font-weight: 900px;
+  text-align: center;
   margin-top: 15%;
+  margin-bottom: 15%;
 }
-.login-dropdown{
-  margin-top: 10%;
-  margin-bottom: 10%;
-  width: 400px;
-}
+
 .nav-bar{
   width: 20%;
   top: 10%;
@@ -92,12 +85,23 @@ position: fixed ;
 .no_task{
   margin-top: 20%;
 }
-.signup-form {
-  display: table;
-  margin: 15%;
+
+.login-form {
+  top: 15vh;
   position: relative;
+  margin-bottom: 5%;
+  width: 80%;
+  padding-left: 15%;  
 }
-.login-form-forgot {
+
+.signup-form {
+  margin-bottom: 5%;
+  width: 80%;
+  padding-left: 15%;
+  
+}
+.forgot-password {
+  margin-right: 10%;
   float: right;
   color: white;
 }
@@ -110,6 +114,7 @@ position: fixed ;
 }
 .login-redirect{
   color: white;
+  text-align: center;
   padding: 5px;
   cursor: pointer;
 }

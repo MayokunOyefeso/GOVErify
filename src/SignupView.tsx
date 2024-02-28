@@ -29,14 +29,13 @@ function SignupView() {
         <h1 className="logo">GOVerify</h1>
         <Form
             name="normal_login"
-            className="signup-form"
             initialValues={{ remember: true }}
             onFinish={onFinish}
         >
         <Select
             labelInValue
             defaultValue={{ value: 'role', label: 'Role', disabled: true }}
-            className="login-dropdown"
+            className="signup-form"
             onChange={handleChange}
             options={[
             {
@@ -50,18 +49,21 @@ function SignupView() {
             ]}
         />
         <Form.Item
+        className="signup-form"
         name="username"
         rules={[{ required: true, message: 'Please input your Username!' }]}
         >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
         </Form.Item>
         <Form.Item
+        className="signup-form"
         name="email"
         rules={[{ required: true, message: 'Please input your Email!' }]}
         >
         <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="School Email" />
         </Form.Item>
         <Form.Item
+        className="signup-form"
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
         >
@@ -72,6 +74,7 @@ function SignupView() {
         />
         </Form.Item>
         <Form.Item
+        className="signup-form"
         name="confirm-password"
         rules={[{ required: true, message: 'Please confirm your Password!' }]}
         >
@@ -82,12 +85,12 @@ function SignupView() {
         />
         </Form.Item>
         <Form.Item>
-        <a className="login-form-forgot" href="">
+        <a className="forgot-password" href="">
           Forgot password?
         </a>
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item className="signup-form">
         <Button htmlType="submit" className="login-form-button">
           Sign up
         </Button>
