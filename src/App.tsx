@@ -4,6 +4,10 @@ import LoginView from './LoginView';
 import LandingView from './LandingView';
 import SignupView from './SignupView';
 import StudentHome from './StudentHome';
+import TaskView from "./TaskView";
+import { useNavigate } from '../node_modules/react-router-dom/dist/index';
+import { Menu } from '../node_modules/antd/es/index';
+
 
 function App() {
 
