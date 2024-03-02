@@ -3,11 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import LoginView from './LoginView';
 import LandingView from './LandingView';
 import SignupView from './SignupView';
-import StudentHome from './StudentHome';
-import TaskView from "./TaskView";
-import { useNavigate } from '../node_modules/react-router-dom/dist/index';
-import { Menu } from '../node_modules/antd/es/index';
-
+import Dashboard from './StudentDashboard';
 
 function App() {
 
@@ -17,7 +13,11 @@ function App() {
         <Route path="/" element={<LandingView/>}></Route>
         <Route path="/signup" element={<SignupView/>}></Route>
         <Route path="/login" element={<LoginView/>}></Route>
-        <Route path="/student-home" element={<StudentHome/>}></Route>
+        <Route path="/student-home" element={<Dashboard/>}></Route>
+        <Route path="/tasks" element={<Dashboard/>}></Route>
+        <Route path="/requests" element={<Dashboard/>}></Route>
+        <Route path="/resources" element={<Dashboard/>}></Route>
+        <Route path="/profile" element={<Dashboard/>}></Route>
     </Routes>
     </Router>
   )
