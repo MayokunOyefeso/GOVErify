@@ -8,7 +8,6 @@ import Dashboard from './StudentDashboard';
 function App() {
 
   return (
-    <Router>
     <Routes>
         <Route path="/" element={<LandingView/>}></Route>
         <Route path="/signup" element={<SignupView/>}></Route>
@@ -19,7 +18,6 @@ function App() {
         <Route path="/resources" element={<Dashboard/>}></Route>
         <Route path="/profile" element={<Dashboard/>}></Route>
     </Routes>
-    </Router>
   )
 }
 
