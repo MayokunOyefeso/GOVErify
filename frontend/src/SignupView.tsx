@@ -4,7 +4,7 @@ import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { EmailList } from "./CustomTypes";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import axios from "axios";
 
@@ -25,8 +25,8 @@ function formatErrorCode(errorString: string): string | null {
 
 function SignupView() {
   const [role, setRole] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
   const [goToLogin, setGoToLogin] = useState(false);
@@ -48,6 +48,7 @@ function SignupView() {
     };
   }, []);
 
+
   const axiosFetchData = async (processing: boolean) => {
     await axios.get("http://localhost:4000/user_emails")
     .then (res => {
@@ -67,19 +68,23 @@ function SignupView() {
       username: username,
       email: email
     }
-    await axios.post('http://localhost:4000/users', postData)
-    .then(() => {setConfirmationMessage("Account Successfully Created!"), 
-    setRole("");
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setConfirmPwd("");
-    setErrorMessage("");
-    setAuthErrorMessage("");
-    setDbErrorMessage("");
-    setPasswordVisible(false);
-    setConfirmPwdVisible(false);})
-    .catch((error) => {setDbErrorMessage(error)})
+    try {
+      await axios.post('http://localhost:4000/users', postData);
+      setConfirmationMessage("Account Successfully Created! \n Verify your email with link to login.");
+      // Clear form fields and error messages
+      setRole("");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPwd("");
+      setErrorMessage("");
+      setAuthErrorMessage("");
+      setDbErrorMessage("");
+      setPasswordVisible(false);
+      setConfirmPwdVisible(false);
+  } catch (error) {
+      setDbErrorMessage(formatErrorCode(error.code));
+  }
   }
 
   const signUp = (e) => {
@@ -98,6 +103,11 @@ function SignupView() {
     }
     else{
       createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCred) => {
+        const user = userCred.user;
+
+        await sendEmailVerification(user)
+      })
       .then(() => {
         axiosPostData()
       }).catch ((error) => {setAuthErrorMessage(formatErrorCode(error))})
@@ -127,7 +137,7 @@ function SignupView() {
       >
       <Select
           labelInValue
-          defaultValue={{ value: 'role', label: 'Role', disabled: true }}
+          defaultValue={{ value: role, label: 'Role', disabled: true }}
           className="signup-form"
           onChange={(e) => setRole(e.value)}
           options={[
@@ -153,7 +163,7 @@ function SignupView() {
       name="email"
       rules={[{ required: true, message: 'Please input your Email!' }]}
       >
-      <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="School Email" onChange={(e) => setEmail(e.target.value)}/>
+      <Input prefix={<MailOutlined className="site-form-item-icon" />} value={email} placeholder="School Email" onChange={(e) => setEmail(e.target.value)}/>
       </Form.Item>
       <Form.Item
       className="signup-form"
@@ -164,6 +174,7 @@ function SignupView() {
         prefix={<LockOutlined className="site-form-item-icon" />}
         type="password"
         placeholder="Password"
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
         visibilityToggle={{
           visible: passwordVisible,
@@ -181,6 +192,7 @@ function SignupView() {
         type="password"
         placeholder="Confirm Password"
         onChange={(e) => setConfirmPwd(e.target.value)}
+        value={confirmPwd}
         visibilityToggle={{
           visible: confirmPwdVisible,
           onVisibleChange: setConfirmPwdVisible,

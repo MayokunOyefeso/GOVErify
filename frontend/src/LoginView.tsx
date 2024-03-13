@@ -26,23 +26,27 @@ function LoginView() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [goHome, setGoHome] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [authErrorMessage, setAuthErrorMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   
   if (goHome){
-  return <Navigate to="/student-home"/>
+  return <Navigate to="/dashboard"/>
   }
 
-
   const signIn = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password).then(
-      ()=>{setGoHome(true)}
-    )
-    .catch ((error) => {
-      const errorCode: string | null = error.code
-      setAuthErrorMessage(formatErrorCode(errorCode))
-    })
+  signInWithEmailAndPassword(auth, email, password).then((userCredential) =>{
+    var user = userCredential.user
+    if (user.emailVerified){
+      setGoHome(true)
+    } else {
+      setErrorMessage("Please verify your email.")
+    }
+  }).catch ((error) => {
+    const errorCode: string | null = error.code
+    setAuthErrorMessage(formatErrorCode(errorCode))
+  })
+
   }
 
   return (
@@ -52,6 +56,8 @@ function LoginView() {
       </div>
     <div className="login">
       <h1 className="logo">GOVerify</h1>
+      <p className="error">{errorMessage}</p>
+      <p className="error">{authErrorMessage}</p>
       <Form
           name="normal_login"
           initialValues={{ remember: true }}
@@ -61,7 +67,6 @@ function LoginView() {
       name="user_id"
       rules={[{ required: true, message: 'Please input your Username or Email!' }]}
       >
-      <p className="error">{authErrorMessage}</p>
       <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
       </Form.Item>
       <Form.Item
