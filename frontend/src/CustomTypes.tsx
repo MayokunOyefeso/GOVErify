@@ -1,9 +1,7 @@
-type User = {
-    role: string,
-    username: string,
-    email: string,
-    password: string,
-    confirm_pwd: string
+type EmailList = {
+    _email: string,
+    _id: string,
+    _role: string
 };
 
-export type {User};
+export type {EmailList};
