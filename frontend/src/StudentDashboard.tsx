@@ -12,11 +12,11 @@ import { HomeOutlined, UserOutlined, DashboardOutlined, ProfileOutlined, FieldTi
         return (
             <>
             <Routes>
-            <Route path="/student-home" element={<StdHomeView/>}></Route>
-            <Route path="/tasks" element={<StdTaskView/>}></Route>
-            <Route path="/requests" element={<StdRequestView/>}></Route>
-            <Route path="/resources" element={<ResourceView/>}></Route>
-            <Route path="/profile" element={<ProfileView/>}></Route>
+            <Route path="/student-home/*" element={<StdHomeView/>}></Route>
+            <Route path="/tasks/*" element={<StdTaskView/>}></Route>
+            <Route path="/requests/*" element={<StdRequestView/>}></Route>
+            <Route path="/resources/*" element={<ResourceView/>}></Route>
+            <Route path="/profile/*" element={<ProfileView/>}></Route>
             </Routes>
             </>
         )
@@ -45,10 +45,10 @@ import { HomeOutlined, UserOutlined, DashboardOutlined, ProfileOutlined, FieldTi
             }
         }}
 
-        items = {[{label: "Home", icon: <HomeOutlined/>, key:"/student-home"}, 
-        {label: "Tasks", icon: <FieldTimeOutlined/>, key: "/tasks"}, 
-        {label: "Requests", icon: <DashboardOutlined/>, key:"/requests"}, 
-        {label: "Resources", icon: <ProfileOutlined />, key:"/resources"},
+        items = {[{label: "Home", icon: <HomeOutlined/>, key:"student-home"}, 
+        {label: "Tasks", icon: <FieldTimeOutlined/>, key: "tasks"}, 
+        {label: "Requests", icon: <DashboardOutlined/>, key:"requests"}, 
+        {label: "Resources", icon: <ProfileOutlined />, key:"resources"},
         {label: "Profile", icon: <UserOutlined/>, key:"profile"},
         {label: "Sign out", icon: <PoweroffOutlined/>, key:"signout", danger:true}]}></Menu>
         </div>

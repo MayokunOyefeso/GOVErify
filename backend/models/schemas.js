@@ -14,16 +14,10 @@ const userSchema = new Schema({
     entryDate: {type:Date, default:Date.now}
 })
 
-const adminSchema = new Schema({
-    username: {type: String, required: true},
-    email: {type: String, required: true},
-    entryDate: {type:Date, default:Date.now}
-})
 
 const Emails = mongoose.model("Emails", userEmailSchema, 'user_emails')
 const Users = mongoose.model("Users", userSchema, 'users')
-const Admins = mongoose.model("Admins", adminSchema, 'admins')
 
-const mySchemas = {'Emails':Emails ,'Users': Users, 'Admins': Admins}
+const mySchemas = {'Emails':Emails ,'Users': Users}
 
 module.exports = mySchemas

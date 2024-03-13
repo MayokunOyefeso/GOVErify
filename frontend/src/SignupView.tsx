@@ -32,7 +32,7 @@ function SignupView() {
   const [goToLogin, setGoToLogin] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPwdVisible, setConfirmPwdVisible] = useState(false);
-  const [userEmails, setUserEmails] = useState<string[]>([]);
+  const [userDetails, setUserDetaiils] = useState<{ [key: string]: string }>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [authErrorMessage, setAuthErrorMessage] = useState("");
   const [dbErrorMessage, setDbErrorMessage] = useState("");
@@ -52,9 +52,11 @@ function SignupView() {
     await axios.get("http://localhost:4000/user_emails")
     .then (res => {
       if (processing) {
-        var getEmails: string[] = [];
-        (res.data).forEach((user:EmailList) => getEmails.push(user._email))
-        setUserEmails(getEmails);
+        var getEmails: {[key: string]: string} = {};
+        res.data.forEach((user: EmailList) => {
+          getEmails[user._email] = user._role;
+      });
+        setUserDetaiils(getEmails);
       }
     }).catch(error => console.log(error))
     }
@@ -66,7 +68,17 @@ function SignupView() {
       email: email
     }
     await axios.post('http://localhost:4000/users', postData)
-    .then((login) => {setConfirmationMessage("Account Successfully Created!"), setGoToLogin(true)})
+    .then(() => {setConfirmationMessage("Account Successfully Created!"), 
+    setRole("");
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPwd("");
+    setErrorMessage("");
+    setAuthErrorMessage("");
+    setDbErrorMessage("");
+    setPasswordVisible(false);
+    setConfirmPwdVisible(false);})
     .catch((error) => {setDbErrorMessage(error)})
   }
 
@@ -75,8 +87,11 @@ function SignupView() {
     if ((role == "" ) || (username == "" ) || (email == "" ) || (password == "" ) || (confirmPwd == "")){
       setErrorMessage("Please complete the form!")
     }
-    else if (userEmails.includes(email) == false){
+    else if (Object.keys(userDetails).includes(email) == false){
       setErrorMessage("Invalid email! Please use Fisk University email")
+    }
+    else if(role != userDetails[email]){
+      setErrorMessage("Role Mismatch!")
     }
     else if (password != confirmPwd){
       setErrorMessage("Password mismatch!")
@@ -101,6 +116,7 @@ function SignupView() {
       </div>
     <div className="login">
       <h1 className="logo">GOVerify</h1>
+      <p className="error">{confirmationMessage}</p>
       <p className="error">{errorMessage}</p>
       <p className="error">{authErrorMessage}</p>
       <p className="error">{dbErrorMessage}</p>

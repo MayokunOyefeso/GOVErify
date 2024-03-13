@@ -1,4 +1,3 @@
-
 function StdHomeView() {
     return (
         <div>Home</div>
