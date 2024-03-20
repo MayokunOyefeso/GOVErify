@@ -46,6 +46,13 @@ function SignupView() {
     };
   }, []);
 
+  const resetForm = () => {
+    setRole("Role");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setConfirmPwd("");
+  };
 
   const axiosFetchData = async (processing: boolean) => {
     await axios.get("http://localhost:4000/user_emails")
@@ -53,7 +60,7 @@ function SignupView() {
       if (processing) {
         var getEmails: {[key: string]: string} = {};
         res.data.forEach((user: EmailList) => {
-          getEmails[user._email] = user._role;
+          getEmails[user.email] = user.role;
       });
         setUserDetaiils(getEmails);
       }
@@ -68,14 +75,10 @@ function SignupView() {
     }
     await axios.post('http://localhost:4000/users', postData).then(() => {
       setConfirmationMessage("Account Successfully Created! \n Verify your email with link to login.");
-      setRole("");
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPwd("");
       setErrorMessage("");
       setPasswordVisible(false);
       setConfirmPwdVisible(false);
+      resetForm();
     }).catch((error) => {
       setErrorMessage(formatErrorCode(error.code))});
   }
@@ -123,8 +126,6 @@ function SignupView() {
       <Form
         autoComplete="off"
         name="signup"
-        initialValues={{ remember: true }}
-          
       >
       <Select
           labelInValue

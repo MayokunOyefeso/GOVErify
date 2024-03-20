@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 import AdminRequestView from "./RequestView";
 import { auth } from "../../firebase/firebase";
 import AdminResourceView from "./ResourceView";
-import StudentView from "./StudentView";
+import UserView from "./UserView";
 import ProfileView from "../General/ProfileView";
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { HomeOutlined, UserOutlined, DashboardOutlined, ProfileOutlined, FieldTimeOutlined , PoweroffOutlined, UsergroupAddOutlined } from "@ant-design/icons/lib/icons";
@@ -70,13 +70,15 @@ function Header(){
 
 function SideMenu({ signout }) {
     const navigate = useNavigate();
+    var currentPath = window.location.pathname;
+    var adminIndex = currentPath.indexOf("/admin/");
+    var newPath = currentPath.slice(adminIndex + "/admin/".length);
 
     return(
         <div className="side-menu">
             <Menu className="nav-width"
-                defaultSelectedKeys={[window.location.pathname]}
+                defaultSelectedKeys={[newPath]}
                 onClick= {({key}) => {
-                    console.log(key);
                     if(key === "signout"){
                         signout();
                     } else {
@@ -87,8 +89,8 @@ function SideMenu({ signout }) {
                           {label: "Tasks", icon: <FieldTimeOutlined/>, key: "admin-tasks"}, 
                           {label: "Requests", icon: <DashboardOutlined/>, key:"admin-requests"}, 
                           {label: "Resources", icon: <ProfileOutlined />, key:"admin-resources"},
-                          {label: "Profile", icon: <UserOutlined/>, key:"admin-profile"},
-                          {label: "Students", icon: <UsergroupAddOutlined/>, key:"students"},
+                          {label: "Users", icon: <UsergroupAddOutlined/>, key:"users"},
+                          {label: "Profile", icon: <UserOutlined/>, key:"profile"},
                           {label: "Sign out", icon: <PoweroffOutlined/>, key:"signout", danger:true}]}
             ></Menu>
         </div>
@@ -104,7 +106,7 @@ function Content(){
                 <Route path="/admin-requests/*" element={<AdminRequestView/>}></Route>
                 <Route path="/admin-resources/*" element={<AdminResourceView/>}></Route>
                 <Route path="/profile/*" element={<ProfileView/>}></Route>
-                <Route path="/students/*" element={<StudentView/>}></Route>
+                <Route path="/users/*" element={<UserView/>}></Route>
             </Routes>
         </>
     )

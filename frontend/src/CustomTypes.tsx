@@ -1,7 +1,9 @@
 type EmailList = {
-    _email: string,
-    _id: string,
-    _role: string
+    email: string,
+    id: string,
+    role: string,
+    lastname:string,
+    firstname: string
 };
 
 export type {EmailList};

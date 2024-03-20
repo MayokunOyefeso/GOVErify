@@ -58,7 +58,7 @@ function LoginView() {
       if (processing) {
         var getEmails: {[key: string]: string} = {};
         res.data.forEach((user: EmailList) => {
-          getEmails[user._email] = user._role;
+          getEmails[user.email] = user.role;
       });
         setUserDetaiils(getEmails);
       }

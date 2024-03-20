@@ -22,6 +22,7 @@ function App() {
         <Route path="/admin-tasks/*" element={<AdminDashboard/>}></Route>
         <Route path="/admin-requests/*" element={<AdminDashboard/>}></Route>
         <Route path="/admin-resources/*" element={<AdminDashboard/>}></Route>
+        <Route path="/users/*" element={<AdminDashboard/>}></Route>
         <Route path="/profile/*" element={<AdminDashboard/>}></Route>
     </Routes>
   )

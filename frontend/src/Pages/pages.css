@@ -1,0 +1,66 @@
+.centered-box {
+    justify-content: center;
+    text-align: center;
+    width: 80%; /* Set the width of the box */
+    padding: 20px; /* Add some padding */
+    background-color: white; /* Set background color to white */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    margin-top: 10%; /* Adjust margin top as needed */
+    margin-bottom: 5%;
+}
+.top-content {
+    margin-top: 0.5%;
+    margin-left: 5%;
+    display: block;
+}
+.content{
+    width: 100%;
+}
+.profile-content{
+    margin-top: 7%;
+    margin-left: 10%;
+    width: 100%;
+}
+.profile-edit{
+    float: right;
+}
+.middle-content {
+    margin-top: 18%;
+    margin-left: 5%;
+    display: block;
+}
+.page-title{
+    font-size: x-large;
+    padding: 25px;
+}
+.fiskite{
+    display: inline;
+}
+.snooze{
+    margin-top: 8%;
+}
+.user-form-button{
+    background-color: #004AAD;
+    color:white;
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+}
+.user-form-modal{
+    margin-top: 5%;
+}
+
+.user-form-submit{
+    background-color: #004AAD;
+    color:white;
+    float: right;
+}
+.users{
+    margin-top: 1%;
+    margin-left: 10%;
+    width: 100%;
+}
+.users-table{
+    margin-top: 3%;
+    width: 100%;
+}

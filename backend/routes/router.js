@@ -14,6 +14,15 @@ router.post('/users', async(req, res) => {
     res.end()
 })
 
+
+router.post('/user_emails', async(req, res) => {
+    const {firstname, lastname, role, email} = req.body
+    const emailData = {firstname:firstname, lastname:lastname, role:role, email: email}
+    const newUser = new schemas.Emails(emailData)
+    const saveUser = await newUser.save()
+    res.end()
+})
+
 router.get('/user_emails', async(req, res) => {
     const userEmails = schemas.Emails
 

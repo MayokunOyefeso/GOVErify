@@ -69,11 +69,14 @@ function Header(){
 
 function SideMenu({ signout }) {
     const navigate = useNavigate();
+    var currentPath = window.location.pathname;
+    var adminIndex = currentPath.indexOf("/dashboard/");
+    var newPath = currentPath.slice(adminIndex + "/dashboard/".length);
 
     return(
         <div className="side-menu">
             <Menu className="nav-width"
-                defaultSelectedKeys={[window.location.pathname]}
+                defaultSelectedKeys={[newPath]}
                 onClick= {({key}) => {
                     console.log(key);
                     if(key === "signout"){
