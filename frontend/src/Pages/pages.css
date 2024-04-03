@@ -8,6 +8,16 @@
     margin-top: 10%; /* Adjust margin top as needed */
     margin-bottom: 5%;
 }
+.custom-card{
+    width: 250px;
+    margin-right: 50px;
+}
+.dashboard{
+    margin-top: 10%;
+    margin-left: -12%;
+    text-align: center;
+}
+
 .top-content {
     margin-top: 0.5%;
     margin-left: 5%;
