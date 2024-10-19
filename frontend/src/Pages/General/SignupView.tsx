@@ -1,13 +1,14 @@
-import globe from "../../images/globe.png"
-import { Button, Select, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { EmailList } from "../../CustomTypes";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
 import axios from "axios";
+import globe from "../../images/globe.png"
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebase";
+import { EmailList } from "../../CustomTypes";
+import { Button, Select, Form, Input } from 'antd';
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { LockOutlined, UserOutlined, MailOutlined, LeftOutlined } from '@ant-design/icons';
 
+//This function helps format the error message to shoe the user only the text needed.
 function formatErrorCode(errorString: string): string | null {
   const match = /^auth\/(.+)$/.exec(errorString);
   
@@ -24,17 +25,19 @@ function formatErrorCode(errorString: string): string | null {
 }
 
 function SignupView() {
-  const [role, setRole] = useState("Role");
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("Role");
+  const [goBack, setGoBack] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
   const [goToLogin, setGoToLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPwdVisible, setConfirmPwdVisible] = useState(false);
-  const [userDetails, setUserDetaiils] = useState<{ [key: string]: string }>({});
-  const [errorMessage, setErrorMessage] = useState("");
   const [confirmationMessage, setConfirmationMessage] = useState("");
+  const [userDetails, setUserDetaiils] = useState<{ [key: string]: string }>({});
   
 
   useEffect(() => {
@@ -111,7 +114,11 @@ function SignupView() {
 
 
   if (goToLogin){
-    return <Navigate to="/login"/>
+    navigate("/login")
+  }
+
+  if (goBack){
+    navigate("/")
   }
 
   return (
@@ -120,6 +127,7 @@ function SignupView() {
       <img src={globe} className="globe" alt="Globe" />
       </div>
     <div className="login">
+      <LeftOutlined className="back-arrow" onClick={()=>setGoBack(true)}/>
       <h1 className="logo">GOVerify</h1>
       <p className="error">{confirmationMessage}</p>
       <p className="error">{errorMessage}</p>
@@ -191,17 +199,13 @@ function SignupView() {
         }}
       />
       </Form.Item>
-      <Form.Item>
-      <a className="forgot-password" href="">
-        Forgot password?
-      </a>
-    </Form.Item>
+      
 
     <Form.Item className="signup-form">
       <Button htmlType="submit" className="login-form-button" onClick={(signUp)}>
         Sign up
       </Button>
-      <h4 className="login-redirect" onClick={() => setGoToLogin(true)}>Already have an account? Login </h4>
+      <h4 className="login-redirect" onClick={() => setGoToLogin(true)}>Already have an account? <span className="login-redirect-text">Login</span> </h4>
     </Form.Item>
       </Form>
       </div>

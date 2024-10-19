@@ -1,23 +1,53 @@
+/*For the sign in and sign up pages the basck-arrow style*/
+.back-arrow{
+    color: white;
+    margin-left: 1%;
+    margin-top: 2%;
+    font-size: 30px;
+}
+
 .centered-box {
     justify-content: center;
     text-align: center;
-    width: 80%; /* Set the width of the box */
-    padding: 20px; /* Add some padding */
-    background-color: white; /* Set background color to white */
-    border-radius: 5px; /* Add border radius for rounded corners */
-    margin-top: 10%; /* Adjust margin top as needed */
-    margin-bottom: 5%;
+    width: 30%; 
+    height: 40vh;
+    background-color: white; 
+    border-radius: 5px; 
+    margin-top: 2%; 
+    margin-bottom: 3%;
+    margin-left: 30%;
 }
 .custom-card{
     width: 250px;
     margin-right: 50px;
 }
-.dashboard{
-    margin-top: 10%;
-    margin-left: -12%;
+.dashboard-middle-content {
+    margin-top: 7%;
+    margin-left: 5%;
+    display: block;
+    
+}
+.dashboard-top-content {
+    margin-top: 0.5%;
+    margin-left: 5%;
+    display: block;
+}
+.std-dashboard{
+    margin-left: -70%;
     text-align: center;
 }
-
+.dashboard{
+    text-align: center;
+    margin-left: -45%;
+}
+.event-flyers{
+    width: 500px;
+    margin-left: 2%;
+    margin-bottom: 3%;
+}
+.link{
+    color: blue;
+}
 .top-content {
     margin-top: 0.5%;
     margin-left: 5%;
@@ -25,6 +55,7 @@
 }
 .content{
     width: 100%;
+    overflow-y: scroll;
 }
 .profile-content{
     margin-top: 7%;
@@ -39,6 +70,11 @@
     margin-left: 5%;
     display: block;
 }
+.middle-content-task {
+    margin-top: 5%;
+    margin-left: 5%;
+    display: block;
+}
 .page-title{
     font-size: x-large;
     padding: 25px;
@@ -48,6 +84,37 @@
 }
 .snooze{
     margin-top: 8%;
+    width: 80px;
+}
+.task-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffff;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 25px;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+}
+.task-title{
+    text-align: center;
+    margin-top: 0px;
+}
+.task-list {
+    width: 85vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+.task-form-button{
+    background-color: #004AAD;
+    color:white;
+    position: fixed;
+    bottom: 10%;
+    right: 6%;
 }
 .user-form-button{
     background-color: #004AAD;
@@ -72,5 +139,5 @@
 }
 .users-table{
     margin-top: 3%;
-    width: 100%;
+    width: 85%;
 }

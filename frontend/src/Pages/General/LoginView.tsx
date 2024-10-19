@@ -1,11 +1,11 @@
 import globe from "../../images/globe.png"
 import { Button, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, LeftOutlined, UserOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { EmailList } from "../../CustomTypes";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import axios from "axios";
 
 
@@ -24,13 +24,18 @@ function formatErrorCode(errorString: string): string | null {
 }
 }
 
+
+
 function LoginView() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [goBack, setGoBack] = useState(false);
   const [password, setPassword] = useState("");
   const [stdHome, setStdHome] = useState(false);
   const [adminHome, setAdminHome] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [authErrorMessage, setAuthErrorMessage] = useState("");
+  const [pwdResetMessage, setPwdResetMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [userDetails, setUserDetaiils] = useState<{ [key: string]: string }>({});
   
@@ -81,7 +86,20 @@ function LoginView() {
     const errorCode: string | null = error.code
     setAuthErrorMessage(formatErrorCode(errorCode))
   })
-
+  }
+  
+  const resetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+  .then(() => {
+    setPwdResetMessage("Check your email for the password reset link and follow the instructions to complete the reset process.")
+  })
+  .catch((error) => {
+    const errorCode: string | null = error.code;
+    setPwdResetMessage(formatErrorCode(errorCode));
+  });
+  }
+  if (goBack){
+    navigate("/signup")
   }
 
   return (
@@ -90,9 +108,11 @@ function LoginView() {
       <img src={globe} className="globe" alt="Globe" />
       </div>
     <div className="login">
+    <LeftOutlined className="back-arrow" onClick={()=>setGoBack(true)} />
       <h1 className="logo">GOVerify</h1>
-      <p className="error">{errorMessage}</p>
-      <p className="error">{authErrorMessage}</p>
+      <span className="error">{errorMessage}</span>
+      <span className="error">{authErrorMessage}</span>
+      <span className="error">{pwdResetMessage}</span>
       <Form
         autoComplete="off"
         name="normal_login"
@@ -121,15 +141,18 @@ function LoginView() {
         }}
       />
     </Form.Item>
-
     <Form.Item className="login-form">
       <Button htmlType="submit" className="login-form-button" onClick={(signIn)}>
         Login
       </Button>
     </Form.Item>
+    <Form.Item className="pwd-redirect-box">
+      <h4 className="pwd-redirect"><span className="pwd-redirect-text" onClick={(resetPassword)}>Forgot Password</span></h4>
+    </Form.Item>
       </Form>
       </div>
     </div>
+    
     )
   }
   

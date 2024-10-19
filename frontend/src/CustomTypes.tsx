@@ -6,4 +6,13 @@ type EmailList = {
     firstname: string
 };
 
-export type {EmailList};
+type Task = {
+    id: number;
+    title: string;
+    description: string;
+    students: string[]; 
+    dueDate: string; 
+    isCompleted: boolean;
+}
+
+export type {EmailList, Task};

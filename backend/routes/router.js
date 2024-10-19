@@ -23,6 +23,14 @@ router.post('/user_emails', async(req, res) => {
     res.end()
 })
 
+router.post('/tasks', async(req, res) => {
+    const {title, description, students, url, dueDate} = req.body
+    const taskData = {title:title, description:description, students:students, url:url, dueDate:dueDate}
+    const newTask = new schemas.Tasks(taskData)
+    const saveTask = await newTask.save()
+    res.end()
+})
+
 router.get('/user_emails', async(req, res) => {
     const userEmails = schemas.Emails
 
@@ -41,6 +49,17 @@ router.get('/users', async(req, res) => {
 
     if (userData) {
         res.send(JSON.stringify(userData));
+    }
+
+})
+
+router.get('/tasks', async(req, res) => {
+    const tasks = schemas.Tasks
+
+    const taskData = await tasks.find({}).exec()
+
+    if (taskData) {
+        res.send(JSON.stringify(taskData));
     }
 
 })
