@@ -30,7 +30,10 @@
   position: absolute;
   right: 5%;
   bottom: 15%;
-  width: 10%;
+  width: auto; /* Allow the width to shrink with the content */
+  padding: 1px 10px; /* Adjust padding as needed */
+  white-space: nowrap; /* Prevent text wrapping */
+  font-size: 1rem;
 }
 .globe{
   position: absolute;
@@ -146,9 +149,9 @@
 .pwd-redirect-text{
   color: white;
   text-decoration: underline;
-  margin-right: 25%;
+  margin-right: 10%;
   cursor:pointer;
-  margin-top: 120px;
+  
 }
 .login-redirect-text{
   color: white;

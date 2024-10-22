@@ -1,12 +1,13 @@
 import axios from "axios";
 import globe from "../../images/globe.png"
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import { EmailList } from "../../CustomTypes";
 import { Button, Select, Form, Input } from 'antd';
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { LockOutlined, UserOutlined, MailOutlined, LeftOutlined } from '@ant-design/icons';
+import ErrorModal from "../../Components/ErrorModal";
 
 //This function helps format the error message to shoe the user only the text needed.
 function formatErrorCode(errorString: string): string | null {
@@ -34,11 +35,21 @@ function SignupView() {
   const [confirmPwd, setConfirmPwd] = useState("");
   const [goToLogin, setGoToLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPwdVisible, setConfirmPwdVisible] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [userDetails, setUserDetaiils] = useState<{ [key: string]: string }>({});
   
+
+  useEffect(() => {
+    if (goToLogin) {
+        navigate("/login");
+    }
+    if (goBack) {
+        navigate("/");
+    }
+  }, [goToLogin, goBack, navigate]);
 
   useEffect(() => {
     let processing = true;
@@ -112,14 +123,20 @@ function SignupView() {
     }
   }
 
+  useEffect(() => {
+    if (errorMessage !== ""){
+      setIsModalVisible(true)
+    }
+    if (confirmationMessage !== ""){
+      setIsModalVisible(true)
+    }
+  },[errorMessage, confirmationMessage])
 
-  if (goToLogin){
-    navigate("/login")
-  }
-
-  if (goBack){
-    navigate("/")
-  }
+  const handleCloseModal = () => {
+    setIsModalVisible(false);  
+    setErrorMessage(""); 
+    setConfirmationMessage("");
+  };
 
   return (
     <div className="image">
@@ -129,8 +146,6 @@ function SignupView() {
     <div className="login">
       <LeftOutlined className="back-arrow" onClick={()=>setGoBack(true)}/>
       <h1 className="logo">GOVerify</h1>
-      <p className="error">{confirmationMessage}</p>
-      <p className="error">{errorMessage}</p>
       <Form
         autoComplete="off"
         name="signup"
@@ -208,7 +223,12 @@ function SignupView() {
       <h4 className="login-redirect" onClick={() => setGoToLogin(true)}>Already have an account? <span className="login-redirect-text">Login</span> </h4>
     </Form.Item>
       </Form>
-      </div>
+    </div>
+    <ErrorModal 
+        visible={isModalVisible} 
+        errorMessage={errorMessage || confirmationMessage } 
+        onClose={handleCloseModal} 
+    />
     </div>
   )
   }

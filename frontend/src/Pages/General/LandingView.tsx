@@ -1,16 +1,18 @@
 import '../../App.css'
 import { Button } from 'antd';
 import globe from "../../images/globe.png"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function LandingView() {
     const navigate = useNavigate();
     const [goToLogin, setGoToLogin] = useState(false);
     
-    if (goToLogin){
-    navigate("/signup")
-    }
+    useEffect(() => {
+      if (goToLogin) {
+          navigate("/signup");
+      }
+  }, [goToLogin, navigate]);
 
   return (
     <div className="image">
