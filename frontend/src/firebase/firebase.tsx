@@ -1,11 +1,8 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyD492XfyX0m9nF5390-saWBOK8eeAyxTSM",
   authDomain: "goverify-cbe0f.firebaseapp.com",
@@ -20,4 +17,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export {auth};
+// Set persistence to local and monitor auth state
+const useAuth = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    // Set the auth persistence to local
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        // Monitor the authentication state
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setCurrentUser(user);  // User is signed in
+          } else {
+            setCurrentUser(null);  // User is signed out
+          }
+        });
+        return () => unsubscribe();
+      })
+      .catch((error) => {
+        console.error("Error setting persistence: ", error);
+      });
+  }, []);
+
+  return currentUser;
+};
+
+export { auth, useAuth };

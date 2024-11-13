@@ -21,6 +21,7 @@ function AdminDashboard() {
     }
 
     var user = auth.currentUser?.email
+    console.log({auth})
     console.log({user});
     function formatErrorCode(errorString: string): string | null {
         const match = /^auth\/(.+)$/.exec(errorString);
