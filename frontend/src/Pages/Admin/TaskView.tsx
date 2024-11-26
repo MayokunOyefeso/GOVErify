@@ -33,14 +33,15 @@ function AdminTaskView() {
             let user_names: Map<string, string> = new Map();
             for (var i=0; i < users.length; i++ ){
                 let curr_user = (users[i])
-                user_names.set(curr_user.email,`${curr_user.firstname} ${curr_user.lastname}`)
+                if (curr_user.role === "student"){
+                    user_names.set(curr_user.email,`${curr_user.firstname} ${curr_user.lastname}`)
+                }
             }
             setOptions(user_names);
-            console.log(options)
         })
         .catch(err => console.log(err))
     }, [])
-    
+
     const axiosPostData = async(postData) => {
         try {
             await axios.post('http://localhost:4000/tasks', postData);
