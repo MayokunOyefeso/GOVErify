@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Divider, Button, Modal, Form, Input, Select, DatePicker, List } from "antd";
 import axios from 'axios';
 import TaskCard from '../../Components/TaskCard';
-import { Task } from "../../CustomTypes";
+import { EmailList, Task } from "../../CustomTypes";
 const { Option } = Select;
 
 
@@ -13,6 +13,8 @@ function AdminTaskView() {
     const [form] = Form.useForm();
     const [tasks, setTasks] = useState<Task[]>([]); 
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+    const [options, setOptions] = useState<Map<string, string>>(new Map());
     const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
 
    
@@ -24,6 +26,20 @@ function AdminTaskView() {
         .catch(err => console.log(err))
     }, [])
 
+    useEffect (() => {
+        axios.get("http://localhost:4000/user_emails")
+        .then(response => {
+            let users: EmailList[] = response.data
+            let user_names: Map<string, string> = new Map();
+            for (var i=0; i < users.length; i++ ){
+                let curr_user = (users[i])
+                user_names.set(curr_user.email,`${curr_user.firstname} ${curr_user.lastname}`)
+            }
+            setOptions(user_names);
+            console.log(options)
+        })
+        .catch(err => console.log(err))
+    }, [])
     
     const axiosPostData = async(postData) => {
         try {
@@ -132,8 +148,27 @@ function AdminTaskView() {
                         rules={[{ required: true, message: 'Please select the students!' }]}
                         className='user-form'
                     >
-                        <Select mode="multiple">
+                        <Select mode="multiple"
+                        value={selectedStudents}
+                        onChange={(value) => {
+                            if (value.includes("all")) {
+                                // If "All Students" is selected, set the value to just "all"
+                                setSelectedStudents(["all"]);
+                            } else {
+                                // Prevent adding other options when "All Students" is already selected
+                                setSelectedStudents(value.filter((v) => v !== "all"));
+                            }
+                        }}
+                        >
                             <Option value="all">All Students</Option>
+                            {
+                                selectedStudents && selectedStudents[0] !== "all" &&
+                                Array.from(options.entries()).sort().map(([key, value]) => (
+                                    <Option key={key} value={key}>
+                                        {value}
+                                    </Option>
+                                ))
+                            }
                         </Select>
                     </Form.Item>
 
