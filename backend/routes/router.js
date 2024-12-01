@@ -24,9 +24,17 @@ router.post('/user_emails', async(req, res) => {
 })
 
 router.post('/tasks', async(req, res) => {
-    const {title, description, students, url, dueDate} = req.body
-    const taskData = {title:title, description:description, students:students, url:url, dueDate:dueDate}
+    const {title, description, students, url, dueDate, upload} = req.body
+    const taskData = {title:title, description:description, students:students, url:url, dueDate:dueDate, upload: upload}
     const newTask = new schemas.Tasks(taskData)
+    const saveTask = await newTask.save()
+    res.end()
+})
+
+router.post('/std_tasks', async(req, res) => {
+    const {email, title, description, isCompleted, dueDate} = req.body
+    const stdTaskData = {email: email, title:title, description:description, isCompleted:isCompleted, dueDate:dueDate}
+    const newTask = new schemas.Std_tasks(stdTaskData)
     const saveTask = await newTask.save()
     res.end()
 })
@@ -63,5 +71,16 @@ router.get('/tasks', async(req, res) => {
     }
 
 })
+
+router.get('/std_tasks', async (req, res) => {
+    const std_tasks = schemas.Std_tasks
+
+    const std_task_data = await std_tasks.find({}).exec()
+
+    if (std_task_data) {
+        res.send(JSON.stringify(std_task_data));
+    }
+    
+});
 
 module.exports = router

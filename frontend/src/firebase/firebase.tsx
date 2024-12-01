@@ -20,27 +20,20 @@ const auth = getAuth(app);
 // Set persistence to local and monitor auth state
 const useAuth = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set the auth persistence to local
-    setPersistence(auth, browserLocalPersistence)
-      .then(() => {
-        // Monitor the authentication state
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (user) {
-            setCurrentUser(user);  // User is signed in
-          } else {
-            setCurrentUser(null);  // User is signed out
-          }
-        });
-        return () => unsubscribe();
-      })
-      .catch((error) => {
-        console.error("Error setting persistence: ", error);
-      });
+    // Monitor the authentication state
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user || null);
+      setLoading(false); // Session check complete
+    });
+    return () => unsubscribe();
   }, []);
 
-  return currentUser;
+  return { currentUser, loading };
+
 };
+
 
 export { auth, useAuth };

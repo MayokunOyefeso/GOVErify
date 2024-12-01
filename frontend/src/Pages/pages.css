@@ -27,13 +27,18 @@
     display: block;
     
 }
+.user-form-upload {
+    display: inline;
+    align-items: center;
+    gap: 8px; 
+}
 .dashboard-top-content {
     margin-top: 0.5%;
     margin-left: 5%;
     display: block;
 }
 .std-dashboard{
-    margin-left: -70%;
+    margin-left: -20%;
     text-align: center;
 }
 .dashboard{

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Modal, Button } from 'antd';
-import { Task } from "../CustomTypes";
+import { Modal, Button, Form } from 'antd';
 import { CalendarOutlined, LinkOutlined } from "@ant-design/icons/lib/icons";
+import axios from 'axios';
 
 function formatDate(dateString) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -15,26 +15,44 @@ function formatDate(dateString) {
     return `  ${month} ${day}, ${year}`;
 }
 
-function StdTaskCard({ task }) {
+function StdTaskCard({ task, currUserEmail }) {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isCompleted, setIsCompleted] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(task.isComplete);
+
+    const axiosPostData = async(postData) => {
+        console.log({currUserEmail})
+        console.log({postData})
+        try {
+            await axios.post('http://localhost:4000/std_tasks', postData);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const showModal = () => {
         setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        task.isComplete = true;
-        setIsCompleted(true);
-        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
     };
 
+
+    const handleFormSubmit = (task) => {
+        console.log({task})
+        const postData = {
+            email: currUserEmail,
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            isCompleted: true,
+        }
+        axiosPostData(postData);
+        setIsModalVisible(false);
+    };
+
     return (
-        <div key={task.id} className="task-card">
+        <div key={task.title} className="task-card">
             <h2 className='task-title'>{task.title}</h2>
             <p>{task.description}</p>
             {task.url && (
@@ -52,7 +70,7 @@ function StdTaskCard({ task }) {
             <Modal
                 title="Confirm Completion"
                 open={isModalVisible}
-                onOk={handleOk}
+                onOk={() => handleFormSubmit(task)}
                 onCancel={handleCancel}
             >
                 <p>Are you sure you want to mark this task as completed?</p>

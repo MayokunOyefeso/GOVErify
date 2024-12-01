@@ -19,10 +19,7 @@ function AdminDashboard() {
     if (goHome){
         return <Navigate to="/"/>
     }
-
-    var user = auth.currentUser?.email
-    console.log({auth})
-    console.log({user});
+    
     function formatErrorCode(errorString: string): string | null {
         const match = /^auth\/(.+)$/.exec(errorString);
         

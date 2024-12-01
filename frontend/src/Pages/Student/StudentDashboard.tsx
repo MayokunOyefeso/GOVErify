@@ -4,7 +4,7 @@ import ProfileView from "../General/ProfileView";
 import { signOut } from "firebase/auth";
 import StdTaskView from "./StdTaskView";
 import StdHomeView from "./StdHomeView";
-import { useAuth } from "../../firebase/firebase";
+import {auth, useAuth } from "../../firebase/firebase";
 import ResourceView from "./ResourceView";
 import { Navigate } from "react-router-dom";
 import StdRequestView from "./StdRequestView";
@@ -12,7 +12,6 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { HomeOutlined, UserOutlined, DashboardOutlined, ProfileOutlined, FieldTimeOutlined , PoweroffOutlined } from "@ant-design/icons/lib/icons";
 
 function Dashboard() {
-    const currUser = useAuth();
     const [goHome, setGoHome] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -20,8 +19,6 @@ function Dashboard() {
         return <Navigate to="/"/>
     }
 
-    var user = currUser
-    console.log(user.email);
     function formatErrorCode(errorString: string): string | null {
         const match = /^auth\/(.+)$/.exec(errorString);
         
